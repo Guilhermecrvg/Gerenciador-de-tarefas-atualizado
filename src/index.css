@@ -1,15 +1,14 @@
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #ffffff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -30,35 +29,40 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* MODOS DE TEMA (COMPATÍVEIS COM O BOTÃO DE ALTERNAR TEMA) */
+.tema-claro {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #ffffff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+.tema-escuro {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
 }
 
 body {
   margin: 0;
+  background-color: var(--bg);
 }
 
 #root {
   width: 1126px;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
   border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
@@ -66,37 +70,313 @@ body {
   box-sizing: border-box;
 }
 
-h1,
-h2 {
+/* ESTRUTURA DO APLICATIVO */
+.app-wrapper {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.app {
+  width: 100%;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+/* TIPOGRAFIA */
+h1, h2, h3 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
+  margin: 0;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
+  font-size: 38px;
+  letter-spacing: -1.2px;
   @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+    font-size: 28px;
   }
 }
+
 h2 {
   font-size: 24px;
-  line-height: 118%;
   letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  margin-bottom: 12px;
 }
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
+/* BOTÕES DE TEMA E AÇÕES */
+.btn-tema {
+  background: var(--code-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tema:hover {
+  border-color: var(--accent);
+}
+
+/* TELA DE AUTENTICAÇÃO (LOGIN / CADASTRO) */
+.autenticacao {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 32px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.form-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.erro-auth {
+  color: #ef4444;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* CABEÇALHO DA APLICAÇÃO */
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+/* CARDS DE RESUMO */
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resumo > div {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resumo span {
+  font-size: 14px;
+}
+
+.resumo strong {
+  font-size: 24px;
+  color: var(--text-h);
+  font-family: var(--mono);
+}
+
+/* BARRA DE PROGRESSO */
+.progresso {
+  margin-bottom: 28px;
+}
+
+.progresso > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.barra {
+  width: 100%;
+  height: 10px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.barra > div {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+/* FORMULÁRIO DE CRIAR TAREFA E CAMPOS DE ENTRADA */
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+input, select {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--text-h);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent);
+}
+
+.formulario input[type="text"] {
+  flex: 3;
+  min-width: 200px;
+}
+
+.pesquisa {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* BOTÕES GERAIS DE AÇÃO */
+.btn-adicionar {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-adicionar:hover {
+  opacity: 0.9;
+}
+
+/* FILTROS */
+.filtros {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.filtros button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filtros button.ativo {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* LISTA DE TAREFAS */
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vazio {
+  text-align: center;
+  padding: 32px;
+  background: var(--code-bg);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+.tarefa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: transform 0.1s ease;
+}
+
+.tarefa.concluida {
+  opacity: 0.6;
+}
+
+.tarefa.concluida h3 {
+  text-decoration: line-through;
+}
+
+.informacoes h3 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.detalhes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.badge-categoria {
+  background: var(--code-bg);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+}
+
+.prioridade.baixa { color: #10b981; }
+.prioridade.media { color: #f59e0b; }
+.prioridade.alta { color: #ef4444; }
+
+.acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.concluir {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.excluir {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+code, .counter {
   font-family: var(--mono);
   display: inline-flex;
   border-radius: 4px;
